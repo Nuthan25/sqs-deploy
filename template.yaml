@@ -53,7 +53,7 @@ Resources:
       QueueName: sqs-queue
 
 Outputs:
-  
+
   HelloWorldFunction:
     Description: Hello World Lambda Function ARN
     Value: !GetAtt HelloWorldFunction.Arn
