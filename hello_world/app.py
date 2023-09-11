@@ -1,42 +1,31 @@
 import json
+import boto3
 
-# import requests
+# Define the S3 bucket name where you want to upload data
+s3_bucket_name = 'sqs-s3s'
 
+s3_client = boto3.client('s3')
 
 def lambda_handler(event, context):
-    """Sample pure Lambda function
+    # Print the received event
+    print("Received event:", json.dumps(event))
 
-    Parameters
-    ----------
-    event: dict, required
-        API Gateway Lambda Proxy Input Format
+    # Extract the message from the SQS event
+    sqs_message = event['Records'][0]['body']
 
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+    # Define the S3 object key (file name)
+    s3_object_key = 'your-prefix/' + sqs_message + '.txt'  # Modify as needed
 
-    context: object, required
-        Lambda Context runtime methods and attributes
-
-        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
-
-    Returns
-    ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
-    """
-
-    # try:
-    #     ip = requests.get("http://checkip.amazonaws.com/")
-    # except requests.RequestException as e:
-    #     # Send some context about this error to Lambda Logs
-    #     print(e)
-
-    #     raise e
+    # Upload data to S3
+    s3_client.put_object(
+        Bucket=s3_bucket_name,
+        Key=s3_object_key,
+        Body=sqs_message
+    )
 
     return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": "hello world",
-            # "location": ip.text.replace("\n", "")
-        }),
+            "message": "Data uploaded to S3 successfully"
+        })
     }
