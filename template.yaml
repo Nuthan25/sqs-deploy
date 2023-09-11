@@ -48,7 +48,7 @@ Resources:
   MyQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: my-sqs-queue-name
+      QueueName: my-sqs-queue
 
 Outputs:
   HelloWorldApi:
