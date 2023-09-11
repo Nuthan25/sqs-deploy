@@ -25,10 +25,12 @@ Resources:
       - x86_64
       Events:
         HelloWorld:
-          Type: Api
+          Type: SQS
           Properties:
-            Path: /hello
-            Method: get
+            Queue:
+              Fn::GetAtt:
+                - MyQueue
+                - Arn
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
