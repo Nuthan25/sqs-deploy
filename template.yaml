@@ -31,6 +31,9 @@ Resources:
               Fn::GetAtt:
                 - MyQueue
                 - Arn
+      Policies: # Add this section to give S3 permissions to your Lambda function
+        - S3WritePolicy:
+            BucketName: !Ref MyS3Bucket
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
