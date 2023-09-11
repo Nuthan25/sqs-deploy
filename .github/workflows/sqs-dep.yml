@@ -22,4 +22,4 @@ jobs:
       - run: sam build --use-container
 
       - name: Deploy SAM Application
-        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sqs-deploy --capabilities CAPABILITY_IAM --region eu-north-1
+        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-hello-world --capabilities CAPABILITY_IAM --region eu-north-1
